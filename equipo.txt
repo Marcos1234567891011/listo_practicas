@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Responsable: Alvaro
+=======
+Responsable: Marcos
+>>>>>>> origin/feature/practicandogit_a

@@ -1,5 +1,6 @@
-from flask import abort, flash, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for, request
 from flask_login import current_user, login_required
+from markupsafe import escape
 
 from app.features.tasks import services, tasks_bp
 from app.features.tasks.forms import TaskForm
@@ -16,10 +17,18 @@ def index():
 
 @tasks_bp.route("/count")
 @login_required
-def count():
+def count_query():
+    state= request.args.get("state" , "pending")
     tasks = services.list_tasks(current_user)
-    pending = sum(1 for t in tasks if t.done)
-    return f"{pending} de {len(tasks)}"
+    if state == "pending":
+        valores = sum(1 for t in tasks if t.done == False)
+    elif state == "done":
+        valores = sum(1 for t in tasks if t.done)
+    elif state == "all":
+        valores = len(tasks)
+    else: 
+        return "Estado no válido: usa pending, done o all", 400
+    return f"{valores} de {len(tasks)}"
 
 @tasks_bp.route("/new", methods=["GET", "POST"])
 @login_required

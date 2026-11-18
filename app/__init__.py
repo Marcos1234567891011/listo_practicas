@@ -68,6 +68,12 @@ def register_error_handlers(app):
             "errors/error.html", code=404, message="La página que buscas no existe."
         ), 404
 
+    @app.errorhandler(405)
+    def incorrect_method(error):
+        return render_template(
+            "errors/error.html", code=405, message="Esa dirección no admite este método"
+        ), 405
+
     @app.errorhandler(500)
     def internal_error(error):
         db.session.rollback()  # deshace cualquier transacción a medias

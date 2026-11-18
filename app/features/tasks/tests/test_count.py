@@ -11,8 +11,8 @@ def test_count_pending_by_default(logged_client, user):
     services.create_task(user, "Una")
     services.toggle_task(services.create_task(user, "Otra"))
     assert logged_client.get("/tasks/count").get_data(as_text=True) == "1 de 2"
-    
-    
+
+
 def test_count_by_default(logged_client, user):
     services.create_task(user, "Una")
     services.create_task(user, "Dos")
@@ -20,4 +20,3 @@ def test_count_by_default(logged_client, user):
     assert logged_client.get("/tasks/count").get_data(as_text=True) == "2 de 3"
     assert logged_client.get("/tasks/count?state=done").get_data(as_text=True) == "1 de 3"
     assert logged_client.get("/tasks/count?state=all").get_data(as_text=True) == "3 de 3"
-    

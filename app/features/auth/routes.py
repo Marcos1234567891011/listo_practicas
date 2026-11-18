@@ -57,4 +57,3 @@ def safe_next_url():
     if next_url.startswith("/") and not next_url.startswith("//"):
         return next_url
     return url_for("tasks.index")
-

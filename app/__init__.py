@@ -67,11 +67,11 @@ def register_error_handlers(app):
         return render_template(
             "errors/error.html", code=404, message="La página que buscas no existe."
         ), 404
-    
+
     @app.errorhandler(405)
-    def not_found(error):
+    def incorrect_method(error):
         return render_template(
-                "errors/error.html", code=405, message="Esa dirección no admite este método"
+            "errors/error.html", code=405, message="Esa dirección no admite este método"
         ), 405
 
     @app.errorhandler(500)
